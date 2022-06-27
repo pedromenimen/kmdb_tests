@@ -16,7 +16,7 @@ class T3RouteTests(APITestCase):
         movie: Movie = Movie.objects.create(**cls.movie_info)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         cls.movie = movie
 
     def test_if_cant_create_movie_if_not_logged(self):

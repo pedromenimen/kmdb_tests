@@ -41,7 +41,7 @@ class T5RouteTests(APITestCase):
             movie: Movie = Movie.objects.create(**movie_inf)
             for genre in genres:
                 found_genre = Genre.objects.get_or_create(**genre)[0]
-                found_genre.Movie.add(movie)
+                movie.genres.add(found_genre)
         self.client.force_authenticate(user=self.user)
         response = self.client.get(f"{self.base_url}movies/", format="json")
         self.assertEqual(response.headers["Content-Type"], "application/json")
@@ -64,7 +64,7 @@ class T5RouteTests(APITestCase):
         movie: Movie = Movie.objects.create(**movie_inf)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         reviews = [
             Review(**review_info(), movie=movie, critic=self.user) for _ in range(4)
         ]
@@ -94,7 +94,7 @@ class T5RouteTests(APITestCase):
         movie: Movie = Movie.objects.create(**movie_inf)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         reviews = [
             Review(**review_info(), movie=movie, critic=self.user) for _ in range(4)
         ]

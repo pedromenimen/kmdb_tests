@@ -17,7 +17,7 @@ class T2ModelTests(TestCase):
         movie: Movie = Movie.objects.create(**self.movie_info)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         self.assertEqual(movie.title, self.movie_info["title"])
         self.assertEqual(movie.duration, self.movie_info["duration"])
         self.assertEqual(movie.premiere, self.movie_info["premiere"])

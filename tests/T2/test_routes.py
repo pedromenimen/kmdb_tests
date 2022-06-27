@@ -59,7 +59,7 @@ class T2RouteTests(APITestCase):
         movie: Movie = Movie.objects.create(**self.movie_info)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         response = self.client.get(f"{self.base_url}movies/", format="json")
         self.assertEqual(response.headers["Content-Type"], "application/json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -77,7 +77,7 @@ class T2RouteTests(APITestCase):
         movie: Movie = Movie.objects.create(**self.movie_info)
         for genre in genres:
             found_genre = Genre.objects.get_or_create(**genre)[0]
-            found_genre.Movie.add(movie)
+            movie.genres.add(found_genre)
         response = self.client.get(f"{self.base_url}movies/{movie.id}/", format="json")
 
         self.assertEqual(response.headers["Content-Type"], "application/json")
