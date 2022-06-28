@@ -30,7 +30,13 @@ class T2ModelTests(TestCase):
         self.assertEqual(genre.name, self.genre_info["name"])
 
     def test_if_review_can_be_created(self):
-        Review.objects.create(**self.review_info)
+        genres = self.movie_info.pop("genres")
+        movie: Movie = Movie.objects.create(**self.movie_info)
+        for genre in genres:
+            found_genre = Genre.objects.get_or_create(**genre)[0]
+            movie.genres.add(found_genre)
+        user: User = User.objects.create_user(**self.user_info)
+        Review.objects.create(**self.review_info, critic=user, movie=movie)
         review: Review = Review.objects.all().first()
         self.assertEqual(review.stars, self.review_info["stars"])
         self.assertEqual(review.review, self.review_info["review"])

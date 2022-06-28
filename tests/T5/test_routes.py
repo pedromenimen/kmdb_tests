@@ -16,8 +16,7 @@ class T5RouteTests(APITestCase):
         cls.user = User.objects.create_superuser(**user_info())
 
     def test_if_pagination_works_as_expected_in_get_users_route(self):
-        users = [User(**user_info()) for _ in range(3)]
-        User.objects.bulk_create(users)
+        users = [User.objects.create_user(**user_info()) for _ in range(3)]
         self.client.force_authenticate(user=self.user)
         response = self.client.get(f"{self.base_url}users/", format="json")
         self.assertEqual(response.headers["Content-Type"], "application/json")
