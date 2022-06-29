@@ -3,7 +3,7 @@ from genres.models import Genre
 from movies.models import Movie
 from account.models import User
 from reviews.models import Review
-from tests.mocks import genre_info, movie_info, review_info
+from tests.mocks import genre_info, movie_info, review_info, user_info
 
 
 class T2ModelTests(TestCase):
@@ -12,6 +12,7 @@ class T2ModelTests(TestCase):
         cls.movie_info = movie_info()
         cls.genre_info = genre_info()
         cls.review_info = review_info()
+        cls.user_info = user_info()
 
     def test_if_movie_can_be_created(self):
         genres = self.movie_info.pop("genres")
