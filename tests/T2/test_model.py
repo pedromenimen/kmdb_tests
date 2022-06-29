@@ -1,7 +1,7 @@
 from django.test import TestCase
 from genres.models import Genre
 from movies.models import Movie
-from account.models import User
+from accounts.models import User
 from reviews.models import Review
 from tests.mocks import genre_info, movie_info, review_info, user_info
 
